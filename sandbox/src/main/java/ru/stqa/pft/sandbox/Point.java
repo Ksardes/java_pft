@@ -12,7 +12,6 @@ public class Point {
     double a = this.x - p.x;
     double b = this.y - p.y;
     double l = Math.sqrt(a * a + b * b);
-    double len;
-    return len = l;
+    return l;
   }
 }

@@ -16,7 +16,6 @@ public class Task2 {
     double a = p2.x - p1.x;
     double b = p2.y - p1.y;
     double l = Math.sqrt(a * a + b * b);
-    double len;
-    return len=l;
+    return l;
   }
 }
