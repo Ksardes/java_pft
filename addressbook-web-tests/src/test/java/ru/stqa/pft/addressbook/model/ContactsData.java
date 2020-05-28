@@ -1,6 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
-public class AddressData {
+public class ContactsData {
   private final String firstname;
   private final String lastname;
   private final String address;
@@ -14,7 +14,7 @@ public class AddressData {
   private final String bday;
   private final String bmonth;
 
-  public AddressData(String firstname, String lastname, String address, String mobile, String email, String email2, String address2, String nickname, String company, String byear, String bday, String bmonth) {
+  public ContactsData(String firstname, String lastname, String address, String mobile, String email, String email2, String address2, String nickname, String company, String byear, String bday, String bmonth) {
     this.firstname = firstname;
     this.lastname = lastname;
     this.address = address;
