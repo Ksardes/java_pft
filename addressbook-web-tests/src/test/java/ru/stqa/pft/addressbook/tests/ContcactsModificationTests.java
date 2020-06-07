@@ -9,7 +9,7 @@ public class ContcactsModificationTests extends TestBase {
   public void testContactsDeletion() {
     app.getContactsHelper().selectContcat();
     app.getContactsHelper().initContactModification();
-    app.getContactsHelper().fillContactsForm(new ContactsData("Иван", "Иванович", "Репина 37\n204", "89992001299", "Test1@gmail.com", "Test2@gmail.com", "Ульяноск", "Artem", "Morishki", "1990", "10", "May"));
+    app.getContactsHelper().fillContactsForm(new ContactsData("Иван", "Иванович", "Репина 37\n204", "89992001299", "Test1@gmail.com", "Test2@gmail.com", "Ульяноск", "Artem", "Morishki", "1990", "10", "May", null), false);
     app.getContactsHelper().submitContactModification();
     app.getContactsHelper().returnToHomePage();
   }

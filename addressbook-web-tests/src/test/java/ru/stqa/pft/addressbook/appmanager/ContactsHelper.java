@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactsData;
 
 public class ContactsHelper extends HelperBase {
@@ -19,7 +20,7 @@ public class ContactsHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
-  public void fillContactsForm(ContactsData contactsData) {
+  public void fillContactsForm(ContactsData contactsData, boolean creation) {
     type(By.name("firstname"),contactsData.getFirstname());
     type(By.name("lastname"),contactsData.getLastname());
     type(By.name("address"),contactsData.getAddress());
@@ -36,6 +37,12 @@ public class ContactsHelper extends HelperBase {
     wd.findElement(By.name("byear")).click();
     wd.findElement(By.name("byear")).clear();
     wd.findElement(By.name("byear")).sendKeys(contactsData.getByear());
+
+    if (creation) {
+      new Select (wd.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroup());
+    } else {
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
 
   }
 
