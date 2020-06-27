@@ -20,7 +20,7 @@ public class ContactsHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
-  public void fillContactsForm(ContactsData contactsData, boolean creation) {
+  public void fillContactsForm(ContactsData contactsData) {
     type(By.name("firstname"),contactsData.getFirstname());
     type(By.name("lastname"),contactsData.getLastname());
     type(By.name("address"),contactsData.getAddress());
@@ -38,11 +38,11 @@ public class ContactsHelper extends HelperBase {
     wd.findElement(By.name("byear")).clear();
     wd.findElement(By.name("byear")).sendKeys(contactsData.getByear());
 
-    if (creation) {
-      new Select (wd.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
+    //if (creation) {
+     // new Select (wd.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroup());
+   // } else {
+    //  Assert.assertFalse(isElementPresent(By.name("new_group")));
+    //}
 
   }
 
@@ -59,10 +59,22 @@ public class ContactsHelper extends HelperBase {
   }
 
   public void initContactModification() {
-    click(By.xpath("(//img[@alt='Edit'])[2]"));
+    click(By.xpath("(//img[@alt='Edit'])"));
   }
 
   public void submitContactModification() {
     click(By.name("update"));
   }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
+  }
+
+  public void createContact(ContactsData contact) {
+    fillContactsForm(contact);
+    submitContactsCreation();
+    returnToHomePage();
+  }
+
+
 }
