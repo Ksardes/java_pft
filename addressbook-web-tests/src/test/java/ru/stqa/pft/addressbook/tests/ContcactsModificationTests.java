@@ -12,7 +12,7 @@ public class ContcactsModificationTests extends TestBase {
   @Test
   public void testContactsDeletion() {
     if (! app.getContactsHelper().isThereAContact()) {
-      app.getNavigationHelper().gotoAddNewPage();
+      app.goTo().gotoAddNewPage();
       app.getContactsHelper().createContact(new ContactsData("Иван", "Иванович", "Репина 37\n204", "89992001299", "Test1@gmail.com",
               "Test2@gmail.com", "Ульяноск"));
     }
