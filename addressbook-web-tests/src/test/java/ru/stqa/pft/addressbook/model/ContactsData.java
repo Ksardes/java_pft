@@ -3,16 +3,15 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactsData {
-  private int id;
-  private final String firstname;
-  private final String lastname;
-  private final String address;
-  private final String mobile;
-  private final String email;
-  private final String email2;
-
-  private final String address2;
+  private int id = Integer.MAX_VALUE;
+  private String firstName;
+  private String lastName;
+  private String address;
+  private String mobile;
+  private String email;
   /*
+  private final String email2;
+  private final String address2;
   private final String nickname;
   private final String company;
   private final String byear;
@@ -20,48 +19,16 @@ public class ContactsData {
   private final String bmonth;
    */
 
-
-  public ContactsData( String firstname, String lastname, String address, String mobile, String email, String email2, String address2) {
-    this.id = 0;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.address = address;
-    this.mobile = mobile;
-    this.email = email;
-    this.email2 = email2;
-    this.address2 = address2;
-  }
-
-  public ContactsData(int id, String firstname, String lastname, String address, String mobile, String email, String email2, String address2) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.address = address;
-    this.mobile = mobile;
-    this.email = email;
-    this.email2 = email2;
-    this.address2 = address2;
-    /*
-    this.nickname = nickname;
-    this.company = company;
-    this.byear = byear;
-    this.bday = bday;
-    this.bmonth = bmonth;
-     */
-  }
   public int getId() {
     return id;
   }
-  public void setId(int id) {
-    this.id = id;
+
+  public String getFirstName() {
+    return firstName;
   }
 
-  public String getFirstname() {
-    return firstname;
-  }
-
-  public String getLastname() {
-    return lastname;
+  public String getLastName() {
+    return lastName;
   }
 
   public String getAddress() {
@@ -76,12 +43,34 @@ public class ContactsData {
     return email;
   }
 
-  public String getEmail2() {
-    return email2;
+  public ContactsData withId(int id) {
+    this.id = id;
+    return this;
   }
 
-  public String getAddress2() {
-    return address2;
+  public ContactsData withFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+  public ContactsData withLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  public ContactsData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public ContactsData withMobile(String mobile) {
+    this.mobile = mobile;
+    return this;
+  }
+
+  public ContactsData withEmail(String email) {
+    this.email = email;
+    return this;
   }
 
   @Override
@@ -89,20 +78,20 @@ public class ContactsData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactsData that = (ContactsData) o;
-    return Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname);
+    return Objects.equals(firstName, that.firstName) &&
+            Objects.equals(lastName, that.lastName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstname, lastname);
+    return Objects.hash(firstName, lastName);
   }
 
   @Override
   public String toString() {
     return "ContactsData{" +
-            "firstname='" + firstname + '\'' +
-            ", lastname='" + lastname + '\'' +
+            "firstname='" + firstName + '\'' +
+            ", lastname='" + lastName + '\'' +
             '}';
   }
 

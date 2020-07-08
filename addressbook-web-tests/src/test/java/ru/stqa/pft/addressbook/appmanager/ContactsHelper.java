@@ -23,14 +23,14 @@ public class ContactsHelper extends HelperBase {
   }
 
   public void fillContactsForm(ContactsData contactsData) {
-    type(By.name("firstname"),contactsData.getFirstname());
-    type(By.name("lastname"),contactsData.getLastname());
+    type(By.name("firstname"),contactsData.getFirstName());
+    type(By.name("lastname"),contactsData.getLastName());
     type(By.name("address"),contactsData.getAddress());
     type(By.name("mobile"),contactsData.getMobile());
     type(By.name("email"),contactsData.getEmail());
+    /*
     type(By.name("email2"),contactsData.getEmail2());
     type(By.name("address2"),contactsData.getAddress2());
-    /*
     type(By.name("nickname"),contactsData.getNickname());
     type(By.name("company"),contactsData.getCompany());
     wd.findElement(By.name("bday")).click();
@@ -74,28 +74,38 @@ public class ContactsHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public void createContact(ContactsData contact) {
+  public void create(ContactsData contact) {
     fillContactsForm(contact);
     submitContactsCreation();
     returnToHomePage();
   }
 
+  public void modify(int index, ContactsData contact) {
+    initContactModification(index);
+    fillContactsForm(contact);
+    submitContactModification();
+    returnToHomePage();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    deleteSelectedContact();
+    closeAlertFromDelete();
+  }
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactsData> getContactList() {
+  public List<ContactsData> list() {
     List<ContactsData> contacts = new ArrayList<ContactsData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element: elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
-        String firstname = cells.get(2).getText();
-        String lastname = cells.get(1).getText();
+        String firstName = cells.get(2).getText();
+        String lastName = cells.get(1).getText();
         int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-        ContactsData contact = new ContactsData(id, firstname, lastname, null, null, null,
-                null, null);
-        contacts.add(contact);
+        contacts.add(new ContactsData().withId(id).withFirstName(firstName).withLastName(lastName));
     }
     return contacts;
   }
