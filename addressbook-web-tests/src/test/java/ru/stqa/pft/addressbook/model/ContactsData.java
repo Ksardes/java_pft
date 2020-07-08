@@ -14,6 +14,7 @@ public class ContactsData {
   private String email2;
   private String email3;
   private String allPhones;
+  private String allEmails;
   /*
   private final String nickname;
   private final String company;
@@ -64,6 +65,10 @@ public class ContactsData {
 
   public String getAllPhones() {
     return allPhones;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
   }
 
   public ContactsData withId(int id) {
@@ -118,6 +123,11 @@ public class ContactsData {
 
   public ContactsData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
+    return this;
+  }
+
+  public ContactsData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
     return this;
   }
 
