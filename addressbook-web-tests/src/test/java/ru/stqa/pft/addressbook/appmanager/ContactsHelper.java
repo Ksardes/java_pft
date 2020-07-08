@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.ContactsData;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactsHelper extends HelperBase {
 
@@ -28,10 +26,14 @@ public class ContactsHelper extends HelperBase {
     type(By.name("firstname"),contactsData.getFirstName());
     type(By.name("lastname"),contactsData.getLastName());
     type(By.name("address"),contactsData.getAddress());
-    type(By.name("mobile"),contactsData.getMobile());
+    type(By.name("home"),contactsData.getHomePhone());
+    type(By.name("mobile"),contactsData.getMobilePhone());
+    type(By.name("work"),contactsData.getWorkPhone());
     type(By.name("email"),contactsData.getEmail());
-    /*
     type(By.name("email2"),contactsData.getEmail2());
+    type(By.name("email3"),contactsData.getEmail3());
+
+    /*
     type(By.name("address2"),contactsData.getAddress2());
     type(By.name("nickname"),contactsData.getNickname());
     type(By.name("company"),contactsData.getCompany());
@@ -63,8 +65,8 @@ public class ContactsHelper extends HelperBase {
     wd.switchTo().alert().accept();
   }
 
-  public void initContactModification(int id) {
-    click(By.cssSelector("a[href='edit.php?id=" + id + "']"));
+  public void initContactModificationById(int id) {
+    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
   }
 
   public void submitContactModification() {
@@ -78,37 +80,58 @@ public class ContactsHelper extends HelperBase {
   public void create(ContactsData contact) {
     fillContactsForm(contact);
     submitContactsCreation();
+    contactCache = null;
     returnToHomePage();
   }
 
   public void modify(ContactsData contact) {
-    initContactModification(contact.getId());
+    initContactModificationById(contact.getId());
     fillContactsForm(contact);
     submitContactModification();
+    contactCache = null;
     returnToHomePage();
   }
 
   public void delete(ContactsData contact) {
     selectContactById(contact.getId());
     deleteSelectedContact();
+    contactCache = null;
     closeAlertFromDelete();
   }
 
-  public int getContactCount() {
+  public int count() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
+  private Contacts contactCache = null;
+
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactCache != null) {
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element: elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       String firstName = cells.get(2).getText();
       String lastName = cells.get(1).getText();
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contacts.add(new ContactsData().withId(id).withFirstName(firstName).withLastName(lastName));
+      String allphones = cells.get(5).getText();
+      contactCache.add(new ContactsData().withId(id).withFirstName(firstName).withLastName(lastName)
+      .withAllPhones(allphones));
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 
+  public ContactsData infoFromEditForm(ContactsData contact) {
+    initContactModificationById(contact.getId());
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String home = wd.findElement(By.name("home")).getAttribute("value");
+    String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+    String work = wd.findElement(By.name("work")).getAttribute("value");
+    wd.navigate().back();
+    return new ContactsData().withId(contact.getId()).withFirstName(firstname).withLastName(lastname)
+            .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+  }
 }
