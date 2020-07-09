@@ -17,7 +17,7 @@ public class ContactComparisonTests extends TestBase {
   public void ensurePreconditions() {
     if (app.contact().all().size() == 0) {
       app.goTo().addNewPage();
-      app.contact().create(new ContactsData().withFirstName("Иван").withLastName("Иванов").withAddress("г. Ульяновск\\nУл. Тестовая\\nд. 99 кв. 999")
+      app.contact().create(new ContactsData().withFirstName("Ivan").withLastName("Ivanov").withAddress("florida\\n st.Bartow 60")
               .withHomePhone("8 (939)").withMobilePhone("33-33-33").withWorkPhone("22 22")
               .withEmail("Test1@gmail.com").withEmail2("Test2@gmail.com").withEmail3("Test3@gmail.com"));
     }
