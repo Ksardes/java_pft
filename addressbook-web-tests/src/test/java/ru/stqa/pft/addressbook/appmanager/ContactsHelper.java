@@ -32,7 +32,7 @@ public class ContactsHelper extends HelperBase {
     type(By.name("email"),contactsData.getEmail());
     type(By.name("email2"),contactsData.getEmail2());
     type(By.name("email3"),contactsData.getEmail3());
-
+    attach(By.name("photo"),contactsData.getPhoto());
     /*
     type(By.name("address2"),contactsData.getAddress2());
     type(By.name("nickname"),contactsData.getNickname());

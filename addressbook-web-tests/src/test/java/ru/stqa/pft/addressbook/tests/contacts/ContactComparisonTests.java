@@ -25,7 +25,7 @@ public class ContactComparisonTests extends TestBase {
 
   @Test
   public void testContactComparison() {
-    app.goTo().HomePage();
+    app.goTo().homePage();
     ContactsData contact =app.contact().all().iterator().next();
     ContactsData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
